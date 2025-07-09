@@ -310,8 +310,8 @@ class CocktailGenerator:
             ingredient_lower = ingredient.lower()
             
             if category == 'spirit':
-                # Spiritueux de base : 45-60ml (standard)
-                proportions[ingredient] = f"{np.random.randint(45, 61)} ml"
+                # Spiritueux de base : 32-45ml (standard)
+                proportions[ingredient] = f"{np.random.randint(32, 45)} ml"
             
             elif category == 'liqueur':
                 # Liqueurs : 15-30ml maximum
@@ -572,58 +572,8 @@ class CocktailGenerator:
         novelty = 1.0 - max_similarity
         return novelty
     
-    def _categorize_ingredients(self, ingredients: List[str]) -> Dict[str, List[str]]:
-        """Catégorise les ingrédients par type"""
-        categories = {
-            'spirits': [],
-            'liqueurs': [],
-            'citrus': [],
-            'syrups': [],
-            'bitters': [],
-            'modifiers': [],
-            'garnish': []
-        }
-        
-        for ingredient in ingredients:
-            ing_lower = ingredient.lower()
-            
-            # Alcools forts (spiritueux)
-            if any(spirit in ing_lower for spirit in 
-                  ['gin', 'vodka', 'rum', 'whiskey', 'whisky', 'tequila', 'brandy', 'cognac', 'bourbon', 'scotch']):
-                categories['spirits'].append(ingredient)
-            
-            # Liqueurs
-            elif any(liq in ing_lower for liq in 
-                    ['cointreau', 'triple sec', 'amaretto', 'kahlua', 'bailey', 'sambuca', 'chartreuse']):
-                categories['liqueurs'].append(ingredient)
-            
-            # Agrumes
-            elif any(citrus in ing_lower for citrus in 
-                    ['lemon', 'lime', 'orange', 'grapefruit', 'citrus']):
-                categories['citrus'].append(ingredient)
-            
-            # Sirops
-            elif any(syrup in ing_lower for syrup in 
-                    ['syrup', 'grenadine', 'honey', 'agave', 'simple']):
-                categories['syrups'].append(ingredient)
-            
-            # Bitters
-            elif 'bitter' in ing_lower:
-                categories['bitters'].append(ingredient)
-            
-            # Modificateurs (vermouths, etc.)
-            elif any(mod in ing_lower for mod in 
-                    ['vermouth', 'aperol', 'campari', 'sherry', 'port']):
-                categories['modifiers'].append(ingredient)
-            
-            # Garnish et divers
-            else:
-                categories['garnish'].append(ingredient)
-        
-        return categories
-    
     def _categorize_ingredient(self, ingredient: str) -> str:
-        """Catégorise un ingrédient selon son type basé sur TOUS les ingrédients du dataset"""
+        """Catégorise un ingrédient selon son type"""
         ingredient_lower = ingredient.lower()
         
         # Spiritueux (alcools forts de base)
@@ -797,6 +747,58 @@ class CocktailGenerator:
         
         return stats
     
+    def generate_cocktail_with_limited_ingredients(self, 
+                                                   available_ingredients: List[str],
+                                                   base_ingredient: str = None,
+                                                   creativity: float = 0.5,
+                                                   num_ingredients: int = None) -> Dict:
+        """Génère un cocktail en utilisant uniquement les ingrédients disponibles"""
+        
+        # Sauvegarder la liste originale
+        original_ingredient_nodes = self.ingredient_nodes.copy()
+        
+        try:
+            # Filtrer les ingrédients disponibles (qui existent dans le dataset)
+            valid_ingredients = [ing for ing in available_ingredients if ing in original_ingredient_nodes]
+            
+            if not valid_ingredients:
+                raise ValueError("Aucun ingrédient valide dans la liste fournie")
+            
+            # Remplacer temporairement la liste des ingrédients
+            self.ingredient_nodes = valid_ingredients
+            
+            # Si pas de base spécifiée, choisir le premier spiritueux disponible
+            if base_ingredient is None:
+                spirits = [ing for ing in valid_ingredients 
+                          if any(spirit in ing.lower() for spirit in 
+                                ['gin', 'vodka', 'rum', 'whiskey', 'tequila', 'brandy'])]
+                if spirits:
+                    base_ingredient = spirits[0]
+                else:
+                    # Si pas de spiritueux, utiliser le premier ingrédient
+                    base_ingredient = valid_ingredients[0]
+            
+            # Vérifier que l'ingrédient de base est disponible
+            if base_ingredient not in valid_ingredients:
+                raise ValueError(f"Ingrédient de base '{base_ingredient}' non disponible")
+            
+            # Générer le cocktail avec la méthode classique
+            cocktail = self.generate_cocktail_from_base(
+                base_ingredient=base_ingredient,
+                creativity=creativity,
+                num_ingredients=num_ingredients
+            )
+            
+            # Ajouter des informations sur les ingrédients disponibles
+            cocktail['available_ingredients'] = available_ingredients
+            cocktail['unused_ingredients'] = [ing for ing in valid_ingredients if ing not in cocktail['ingredients']]
+            
+            return cocktail
+            
+        finally:
+            # Restaurer la liste originale
+            self.ingredient_nodes = original_ingredient_nodes
+
 def main():
     """Test du générateur de cocktails"""
     print("🍸 Cocktail Generator - Test de génération")
@@ -839,6 +841,25 @@ def main():
     similar = generator.find_similar_ingredients('gin', top_k=5)
     for ingredient, similarity in similar:
         print(f"  {ingredient}: {similarity:.3f}")
+    
+    # Test 4: Génération avec ingrédients limités
+    print(f"\n🍹 Génération avec ingrédients limités:")
+    limited_ingredients = ['gin', 'lemon juice', 'sugar syrup', 'tonic water']
+    cocktail_limited = generator.generate_cocktail_with_limited_ingredients(
+        available_ingredients=limited_ingredients,
+        base_ingredient='gin',
+        creativity=0.7
+    )
+    
+    print(f"🍸 {cocktail_limited['name']} (Ingrédients limités)")
+    print("Ingrédients:")
+    for ingredient, proportion in zip(cocktail_limited['ingredients'], 
+                                      cocktail_limited['proportions'].values()):
+        print(f"  - {proportion} {ingredient}")
+    
+    print(f"Instructions: {cocktail_limited['instructions']}")
+    print(f"Profil gustatif: {cocktail_limited['estimated_taste']}")
+    print(f"Nouveauté: {generator.evaluate_cocktail_novelty(cocktail_limited):.2f}")
     
     print("\n✅ Tests de génération terminés !")
 

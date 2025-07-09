@@ -90,118 +90,72 @@ class GradioCocktailDemo:
         except Exception as e:
             return f"❌ Erreur lors de la génération: {str(e)}", "", "", ""
     
-    def find_similar_ingredients(self, ingredient, top_k):
-        """Trouve des ingrédients similaires"""
-        if not self.generator:
-            return "❌ Générateur non disponible"
-        
-        try:
-            if ingredient not in self.generator.ingredient_nodes:
-                return f"❌ Ingrédient '{ingredient}' non trouvé"
-            
-            similar = self.generator.find_similar_ingredients(ingredient, top_k=top_k)
-            
-            # Créer un graphique de similarité
-            ingredients = [item[0] for item in similar]
-            similarities = [item[1] for item in similar]
-            
-            fig = go.Figure(data=go.Bar(
-                x=similarities,
-                y=ingredients,
-                orientation='h',
-                marker_color='rgba(55, 128, 191, 0.7)',
-                marker_line_color='rgba(55, 128, 191, 1.0)',
-                marker_line_width=2
-            ))
-            
-            fig.update_layout(
-                title=f"🔍 Ingrédients similaires à '{ingredient}'",
-                xaxis_title="Similarité",
-                yaxis_title="Ingrédients",
-                height=400,
-                template="plotly_white"
-            )
-            
-            return fig
-            
-        except Exception as e:
-            return f"❌ Erreur: {str(e)}"
     
-    def analyze_cocktail(self, cocktail_name):
-        """Analyse un cocktail existant"""
-        if not self.generator:
-            return "❌ Générateur non disponible", ""
-        
-        try:
-            # Recherche flexible du cocktail
-            found_cocktail = None
-            for cocktail in self.generator.cocktail_nodes:
-                if cocktail_name.lower() in cocktail.lower():
-                    found_cocktail = cocktail
-                    break
-            
-            if not found_cocktail:
-                available = ", ".join(sorted(self.generator.cocktail_nodes)[:10])
-                return f"❌ Cocktail '{cocktail_name}' non trouvé.\n\nDisponibles: {available}...", ""
-            
-            # Analyser le cocktail
-            ingredients = list(self.generator.graph.neighbors(found_cocktail))
-            
-            analysis = f"📊 **Analyse de '{found_cocktail}'**\n\n"
-            analysis += f"🥃 **Ingrédients ({len(ingredients)}):**\n"
-            
-            for ingredient in ingredients:
-                edge_data = self.generator.graph[found_cocktail][ingredient]
-                measurement = edge_data.get('measurement_raw', 'N/A')
-                analysis += f"  • {ingredient} ({measurement})\n"
-            
-            # Cocktails similaires
-            analysis += f"\n🔍 **Cocktails similaires:**\n"
-            similar_cocktails = self._find_similar_cocktails(found_cocktail, ingredients)
-            
-            for cocktail, similarity in similar_cocktails[:5]:
-                stars = "⭐" * int(similarity * 5)
-                analysis += f"  • {cocktail} {stars} ({similarity:.2f})\n"
-            
-            # Créer un graphique des ingrédients
-            ingredient_chart = self._create_ingredient_chart(found_cocktail, ingredients)
-            
-            return analysis, ingredient_chart
-            
-        except Exception as e:
-            return f"❌ Erreur: {str(e)}", ""
     
-    def generate_multiple_cocktails(self, num_cocktails, creativity_range):
-        """Génère plusieurs cocktails avec différents niveaux de créativité"""
+    
+    def generate_multiple_cocktails(self, num_cocktails, min_creativity, max_creativity):
+        """Generate multiple cocktails with random creativity levels"""
         if not self.generator:
-            return "❌ Générateur non disponible"
+            return "❌ Generator not available"
         
         try:
-            # Générer les cocktails
-            cocktails = self.generator.generate_multiple_cocktails(num_cocktails)
+            import random
             
-            # Formatter les résultats
-            results = "🍸 **Cocktails générés:**\n\n"
+            if min_creativity > max_creativity:
+                return "❌ Min creativity must be <= Max creativity"
             
-            for i, cocktail in enumerate(cocktails, 1):
-                novelty = self.generator.evaluate_cocktail_novelty(cocktail)
-                creativity = cocktail.get('creativity_score', 0.5)
+            results = "🍸 **Generated Cocktails:**\n\n"
+            
+            for i in range(int(num_cocktails)):
+                creativity = random.uniform(min_creativity, max_creativity)
+                cocktail = self.generator.generate_cocktail_from_base(
+                    base_ingredient=random.choice(list(self.generator.ingredient_nodes)),
+                    creativity=creativity,
+                    num_ingredients=random.randint(3, 6)
+                )
                 
-                results += f"## {i}. {cocktail['name']}\n"
-                results += f"**Ingrédients:** {', '.join(cocktail['ingredients'])}\n"
-                results += f"**Créativité:** {creativity:.2f}/1.0 | **Nouveauté:** {novelty:.2f}/1.0\n\n"
-                
-                # Instructions courtes
-                instructions = cocktail['instructions']
-                if len(instructions) > 100:
-                    instructions = instructions[:100] + "..."
-                results += f"*{instructions}*\n\n"
+                results += f"## {i+1}. {cocktail['name']} (Creativity: {creativity:.2f})\n"
+                results += f"**Ingredients:**\n"
+                for ingredient in cocktail['ingredients']:
+                    proportion = cocktail['proportions'].get(ingredient, "To taste")
+                    results += f"• **{proportion}** {ingredient}\n"
+                results += f"\n**Instructions:** {cocktail['instructions'][:100]}...\n\n"
                 results += "---\n\n"
             
             return results
             
         except Exception as e:
-            return f"❌ Erreur: {str(e)}"
+            return f"❌ Error: {str(e)}"
+    
+    def generate_cocktail_from_available_ingredients(self, selected_ingredients, creativity, min_ingredients, max_ingredients):
+        """Generate cocktail from selected ingredients"""
+        if not self.generator:
+            return "❌ Generator not available", "", ""
+        
+        try:
+            if len(selected_ingredients) < min_ingredients:
+                return f"❌ Select at least {min_ingredients} ingredients", "", ""
+            
+            cocktail = self.generator.generate_cocktail_with_limited_ingredients(
+                available_ingredients=selected_ingredients,
+                base_ingredient=None,
+                creativity=creativity,
+                num_ingredients=max_ingredients
+            )
+            
+            recipe = f"# 🍸 {cocktail['name']}\n\n## Ingredients:\n"
+            for ingredient in cocktail['ingredients']:
+                proportion = cocktail['proportions'].get(ingredient, "To taste")
+                recipe += f"• **{proportion}** {ingredient}\n"
+            
+            instructions = cocktail['instructions']
+            
+            stats = f"📊 **Stats**\n🎨 Creativity: {creativity:.2f}\n🥃 Ingredients: {len(cocktail['ingredients'])}"
+            
+            return recipe, instructions, stats
+            
+        except Exception as e:
+            return f"❌ Error: {str(e)}", "", ""
     
     def _format_recipe(self, cocktail):
         """Formats recipe in markdown"""
@@ -226,91 +180,10 @@ class GradioCocktailDemo:
         
         return stats
     
-    def _create_taste_chart(self, taste_profile):
-        """Crée un graphique radar du profil gustatif"""
-        categories = list(taste_profile.keys())
-        values = list(taste_profile.values())
-        
-        # Ajouter le premier point à la fin pour fermer le radar
-        categories += [categories[0]]
-        values += [values[0]]
-        
-        fig = go.Figure()
-        
-        fig.add_trace(go.Scatterpolar(
-            r=values,
-            theta=categories,
-            fill='toself',
-            name='Profil gustatif',
-            line_color='rgba(255, 99, 71, 0.8)',
-            fillcolor='rgba(255, 99, 71, 0.3)'
-        ))
-        
-        fig.update_layout(
-            polar=dict(
-                radialaxis=dict(
-                    visible=True,
-                    range=[0, 1]
-                )),
-            showlegend=False,
-            title="👅 Profil gustatif prédit",
-            height=400
-        )
-        
-        return fig
+ 
     
-    def _create_ingredient_chart(self, cocktail_name, ingredients):
-        """Crée un graphique des ingrédients d'un cocktail"""
-        # Analyser les types d'ingrédients
-        types = []
-        for ingredient in ingredients:
-            if any(spirit in ingredient.lower() for spirit in ['gin', 'vodka', 'rum', 'whiskey', 'tequila']):
-                types.append('Spiritueux')
-            elif any(mod in ingredient.lower() for mod in ['vermouth', 'liqueur', 'syrup']):
-                types.append('Modificateur')
-            elif any(cit in ingredient.lower() for cit in ['lemon', 'lime', 'orange']):
-                types.append('Agrume')
-            else:
-                types.append('Autre')
-        
-        # Compter les types
-        type_counts = {}
-        for t in types:
-            type_counts[t] = type_counts.get(t, 0) + 1
-        
-        # Créer le graphique
-        fig = go.Figure(data=go.Pie(
-            labels=list(type_counts.keys()),
-            values=list(type_counts.values()),
-            hole=0.3,
-            marker_colors=['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4']
-        ))
-        
-        fig.update_layout(
-            title=f"🥃 Composition de '{cocktail_name}'",
-            height=400
-        )
-        
-        return fig
     
-    def _find_similar_cocktails(self, target_cocktail, target_ingredients):
-        """Trouve des cocktails similaires"""
-        similar_cocktails = []
-        target_ingredients = set(target_ingredients)
-        
-        for other_cocktail in self.generator.cocktail_nodes:
-            if other_cocktail != target_cocktail:
-                other_ingredients = set(self.generator.graph.neighbors(other_cocktail))
-                
-                intersection = len(target_ingredients & other_ingredients)
-                union = len(target_ingredients | other_ingredients)
-                similarity = intersection / union if union > 0 else 0.0
-                
-                if similarity > 0.1:
-                    similar_cocktails.append((other_cocktail, similarity))
-        
-        similar_cocktails.sort(key=lambda x: x[1], reverse=True)
-        return similar_cocktails
+    
     
     def get_available_ingredients(self):
         """Retourne la liste des ingrédients disponibles"""
@@ -323,216 +196,194 @@ class GradioCocktailDemo:
         if self.generator:
             return sorted(self.generator.cocktail_nodes)
         return []
-
-def create_gradio_interface():
-    """Creates the Gradio interface"""
-    demo_app = GradioCocktailDemo()
     
-    # Custom CSS for styling
-    custom_css = """
-    .gradio-container {
-        font-family: 'Arial', sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-    .gr-button-primary {
-        background: linear-gradient(45deg, #ff6b6b, #ee5a24) !important;
-        border: none !important;
-    }
-    .gr-box {
-        border-radius: 15px !important;
-        background: rgba(255, 255, 255, 0.95) !important;
-        backdrop-filter: blur(10px) !important;
-    }
-    """
-    
-    with gr.Blocks(css=custom_css, title="🍸 Cocktail GNN Generator") as app:
+    def get_ingredients_by_category(self):
+        """Retourne les ingrédients organisés par catégorie"""
+        if not self.generator:
+            return {}
         
-        # Header
-        gr.HTML("""
-        <div style="text-align: center; padding: 20px; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 15px; margin-bottom: 20px;">
-            <h1 style="color: white; margin: 0; font-size: 3em;">🍸 Cocktail GNN</h1>
-            <p style="color: white; margin: 10px 0 0 0; font-size: 1.2em;">AI-powered cocktail recipe generator with Graph Neural Network</p>
-        </div>
-        """)
+        categories = {
+            'Spirits': [],
+            'Liqueurs': [],
+            'Wines & Champagne': [],
+            'Juices & Citrus': [],
+            'Syrups & Sweeteners': [],
+            'Bitters & Aromatics': [],
+            'Mixers': [],
+            'Garnishes': [],
+            'Others': []
+        }
         
-        # Tabs for different functionalities
-        with gr.Tabs():
+        for ingredient in sorted(self.generator.ingredient_nodes):
+            ingredient_lower = ingredient.lower()
             
-            # Tab 1: Single generation
-            with gr.TabItem("🍸 Generate a cocktail"):
-                with gr.Row():
-                    with gr.Column(scale=1):
-                        base_ingredient = gr.Dropdown(
-                            choices=demo_app.get_available_spirits(),
-                            label="🥃 Base spirit",
-                            info="Choose your main spirit (alcohol base required)"
-                        )
-                        creativity = gr.Slider(
-                            minimum=0.0,
-                            maximum=1.0,
-                            value=0.5,
-                            step=0.1,
-                            label="🎨 Creativity level",
-                            info="0.0 = Classic, 1.0 = Very creative"
-                        )
-                        num_ingredients = gr.Slider(
-                            minimum=2,
-                            maximum=8,
-                            value=4,
-                            step=1,
-                            label="📊 Number of ingredients"
-                        )
-                        generate_btn = gr.Button("🔮 Generate cocktail", variant="primary", size="lg")
-                    
-                    with gr.Column(scale=2):
-                        recipe_output = gr.Markdown(label="📋 Recipe")
-                
-                with gr.Row():
-                    with gr.Column():
-                        instructions_output = gr.Textbox(label="📝 Instructions", lines=4)
-                    
-                    with gr.Column():
-                        stats_output = gr.Markdown(label="📊 Statistics")
-                
-                generate_btn.click(
-                    fn=demo_app.generate_cocktail,
-                    inputs=[base_ingredient, creativity, num_ingredients],
-                    outputs=[recipe_output, instructions_output, stats_output]
-                )
+            # Spiritueux
+            if any(spirit in ingredient_lower for spirit in 
+                   ['gin', 'vodka', 'rum', 'whiskey', 'whisky', 'tequila', 'brandy', 'cognac', 'bourbon', 
+                    'absinthe', 'cachaca']):
+                categories['Spirits'].append(ingredient)
             
-            # Tab 2: Multiple generation
-            with gr.TabItem("🍸✨ Generate multiple cocktails"):
-                with gr.Row():
-                    with gr.Column(scale=1):
-                        # Parameters for multiple generation
-                        multiple_base = gr.Dropdown(
-                            choices=["Random"] + demo_app.get_available_spirits(),
-                            value="Random",
-                            label="🥃 Base spirit (optional)",
-                            info="Leave 'Random' to vary base spirits"
-                        )
-                        num_cocktails = gr.Slider(
-                            minimum=2,
-                            maximum=10,
-                            value=5,
-                            step=1,
-                            label="🔢 Number of cocktails",
-                            info="How many cocktails to generate"
-                        )
-                        creativity_min = gr.Slider(
-                            minimum=0.0,
-                            maximum=1.0,
-                            value=0.3,
-                            step=0.1,
-                            label="🎨 Minimum creativity"
-                        )
-                        creativity_max = gr.Slider(
-                            minimum=0.0,
-                            maximum=1.0,
-                            value=0.8,
-                            step=0.1,
-                            label="🎨 Maximum creativity"
-                        )
-                        generate_multiple_btn = gr.Button("🔮✨ Generate cocktails", variant="primary", size="lg")
-                    
-                    with gr.Column(scale=2):
-                        multiple_output = gr.Markdown(
-                            label="🍸 Generated cocktails", 
-                            value="Click 'Generate cocktails' to start!",
-                            max_height=600
-                        )
-                
-                # Function to generate multiple cocktails
-                def generate_multiple_cocktails_wrapper(base, num_cocktails, creativity_min, creativity_max):
-                    if not demo_app.generator:
-                        return "❌ Generator not available"
-                    
-                    try:
-                        results = "# 🍸 Generated Cocktails\n\n"
-                        successful_generations = 0
-                        
-                        for i in range(num_cocktails):
-                            try:
-                                # Choose random base if necessary
-                                if base == "Random":
-                                    import random
-                                    current_base = random.choice(demo_app.get_available_spirits())
-                                else:
-                                    current_base = base
-                                
-                                # Random creativity level in range
-                                import random
-                                current_creativity = random.uniform(creativity_min, creativity_max)
-                                
-                                # Random number of ingredients
-                                current_num_ingredients = random.randint(3, 6)
-                                
-                                # Generate cocktail
-                                cocktail = demo_app.generator.generate_cocktail_from_base(
-                                    base_ingredient=current_base,
-                                    creativity=current_creativity,
-                                    num_ingredients=current_num_ingredients
-                                )
-                                
-                                # Format result
-                                novelty = demo_app.generator.evaluate_cocktail_novelty(cocktail)
-                                
-                                results += f"## {successful_generations + 1}. 🍸 {cocktail['name']}\n\n"
-                                results += f"**🥃 Base:** {current_base} | **🎨 Creativity:** {current_creativity:.2f} | **✨ Novelty:** {novelty:.2f}\n\n"
-                                
-                                results += "**📋 Ingredients:**\n"
-                                for ingredient in cocktail['ingredients']:
-                                    proportion = cocktail['proportions'].get(ingredient, "To taste")
-                                    results += f"• {proportion} {ingredient}\n"
-                                
-                                results += f"\n**📝 Instructions:** {cocktail['instructions'][:150]}...\n\n"
-                                results += "---\n\n"
-                                
-                                successful_generations += 1
-                                
-                            except Exception as e:
-                                results += f"❌ Error for cocktail {i+1}: {str(e)}\n\n"
-                        
-                        if successful_generations == 0:
-                            return "❌ No cocktails could be generated. Check parameters."
-                        
-                        results += f"✅ **{successful_generations}/{num_cocktails} cocktails generated successfully!**"
-                        return results
-                        
-                    except Exception as e:
-                        return f"❌ Error during multiple generation: {str(e)}"
-                
-                generate_multiple_btn.click(
-                    fn=generate_multiple_cocktails_wrapper,
-                    inputs=[multiple_base, num_cocktails, creativity_min, creativity_max],
-                    outputs=[multiple_output]
-                )
+            # Liqueurs
+            elif any(liq in ingredient_lower for liq in 
+                    ['liqueur', 'cointreau', 'triple sec', 'amaretto', 'kahlua', 'chartreuse', 'curacao',
+                     'baileys', 'grand marnier', 'passoa']):
+                categories['Liqueurs'].append(ingredient)
+            
+            # Vins et Champagnes
+            elif any(wine in ingredient_lower for wine in 
+                    ['champagne', 'prosecco']):
+                categories['Wines & Champagne'].append(ingredient)
+            
+            # Jus et agrumes
+            elif any(juice in ingredient_lower for juice in 
+                    ['juice', 'lemon', 'lime', 'orange', 'grapefruit', 'cranberry', 'pineapple']):
+                categories['Juices & Citrus'].append(ingredient)
+            
+            # Sirops et sucrants
+            elif any(syrup in ingredient_lower for syrup in 
+                    ['syrup', 'grenadine', 'honey', 'agave', 'simple', 'elderflower']):
+                categories['Syrups & Sweeteners'].append(ingredient)
+            
+            # Amers et aromatiques
+            elif any(bitter in ingredient_lower for bitter in 
+                    ['bitter', 'bitters', 'campari', 'aperol', 'vermouth']):
+                categories['Bitters & Aromatics'].append(ingredient)
+            
+            # Mixers
+            elif any(mixer in ingredient_lower for mixer in 
+                    ['water', 'soda', 'tonic', 'ginger', 'cola']):
+                categories['Mixers'].append(ingredient)
+            
+            # Garnitures
+            elif any(garnish in ingredient_lower for garnish in 
+                    ['cherry', 'olive', 'peel', 'mint', 'rosemary', 'blackberries']):
+                categories['Garnishes'].append(ingredient)
+            
+            # Autres
+            else:
+                categories['Others'].append(ingredient)
         
-        # Footer
-        gr.HTML("""
-        <div style="text-align: center; padding: 20px; margin-top: 30px; opacity: 0.7;">
-            <p>🤖 Powered by GraphSAGE GNN | 🧠 Trained on 97 cocktails</p>
-            <p>Intelligent cocktail recipe generator 🍸</p>
-        </div>
-        """)
+        return categories
     
-    return app
+    def _format_recipe_with_availability(self, cocktail):
+        """Formate la recette en montrant les ingrédients utilisés et non utilisés"""
+        recipe = f"# 🍸 {cocktail['name']}\n\n"
+        recipe += "## 📋 Ingrédients utilisés\n"
+        
+        for ingredient in cocktail['ingredients']:
+            proportion = cocktail['proportions'].get(ingredient, "To taste")
+            recipe += f"• **{proportion}** {ingredient}\n"
+        
+        if cocktail.get('unused_ingredients'):
+            recipe += f"\n## 📦 Ingrédients disponibles non utilisés\n"
+            for ingredient in cocktail['unused_ingredients']:
+                recipe += f"• {ingredient}\n"
+        
+        return recipe
+    
+    def _format_stats_with_availability(self, cocktail):
+        """Formate les statistiques avec info sur les ingrédients"""
+        novelty = self.generator.evaluate_cocktail_novelty(cocktail)
+        creativity = cocktail.get('creativity_score', 0.5)
+        
+        stats = f"📊 **Performance Scores**\n\n"
+        stats += f"🎨 **Creativity:** {creativity:.2f}/1.0\n"
+        stats += f"✨ **Novelty:** {novelty:.2f}/1.0\n"
+        stats += f"🥃 **Ingrédients utilisés:** {len(cocktail['ingredients'])}\n"
+        stats += f"📦 **Ingrédients disponibles:** {len(cocktail['available_ingredients'])}\n"
+        stats += f"🔄 **Taux d'utilisation:** {len(cocktail['ingredients'])/len(cocktail['available_ingredients'])*100:.1f}%\n"
+        
+        return stats
+    
+    def _format_ingredients(self, cocktail):
+        """Formate la liste des ingrédients"""
+        ingredients_text = "🥃 **Ingrédients du cocktail:**\n\n"
+        
+        for ingredient in cocktail['ingredients']:
+            proportion = cocktail['proportions'].get(ingredient, "To taste")
+            ingredients_text += f"• {ingredient}: {proportion}\n"
+        
+        return ingredients_text
+    
+    def create_interface(self):
+        """Create simple interface with 2 tabs"""
+        
+        with gr.Blocks(title="🍸 Cocktail Generator GNN") as demo:
+            gr.Markdown("# 🍸 Cocktail Generator GNN")
+            
+            with gr.Tabs():
+                # Tab 1: Multiple Generation
+                with gr.TabItem("🥃 Classic Generation: MULTIPLE"):
+                    gr.Markdown("## Generate multiple cocktails with random creativity")
+                    
+                    with gr.Row():
+                        with gr.Column():
+                            num_cocktails = gr.Slider(3, 10, value=5, step=1, label="Number of cocktails")
+                            min_creativity = gr.Slider(0.1, 1.0, value=0.3, step=0.1, label="Min creativity")
+                            max_creativity = gr.Slider(0.1, 1.0, value=0.8, step=0.1, label="Max creativity")
+                            generate_btn = gr.Button("🍸 Generate", variant="primary")
+                        
+                        with gr.Column():
+                            output = gr.Markdown()
+                    
+                    generate_btn.click(
+                        fn=self.generate_multiple_cocktails,
+                        inputs=[num_cocktails, min_creativity, max_creativity],
+                        outputs=[output]
+                    )
+                
+                # Tab 2: Personalized with Ingredients
+                with gr.TabItem("📦 Personalized with Ingredients"):
+                    gr.Markdown("## Generate cocktail with your ingredients")
+                    
+                    with gr.Row():
+                        with gr.Column():
+                            creativity = gr.Slider(0.1, 1.0, value=0.5, step=0.1, label="Creativity")
+                            min_ing = gr.Slider(2, 6, value=3, step=1, label="Min ingredients")
+                            max_ing = gr.Slider(3, 8, value=5, step=1, label="Max ingredients")
+                            
+                            # Simple ingredient selection
+                            ingredients = gr.CheckboxGroup(
+                                choices=self.get_available_ingredients(),
+                                label="Select ingredients",
+                                value=[]
+                            )
+                            
+                            generate_btn2 = gr.Button("🍸 Generate", variant="primary")
+                        
+                        with gr.Column():
+                            recipe_out = gr.Markdown()
+                            instructions_out = gr.Markdown()
+                            stats_out = gr.Markdown()
+                    
+                    generate_btn2.click(
+                        fn=self.generate_cocktail_from_available_ingredients,
+                        inputs=[ingredients, creativity, min_ing, max_ing],
+                        outputs=[recipe_out, instructions_out, stats_out]
+                    )
+        
+        return demo
 
 def main():
-    """Launches the Gradio interface"""
-    print("🚀 Launching Gradio interface...")
+    """Launch the interface"""
+    print("🍸 Starting Cocktail Generator...")
     
-    try:
-        app = create_gradio_interface()
-        app.launch(
-            server_name="0.0.0.0",
-            server_port=7860,
-            share=True,  # Creates a public link
-            debug=True
-        )
-    except Exception as e:
-        print(f"❌ Launch error: {e}")
+    demo_app = GradioCocktailDemo()
+    
+    if demo_app.generator is None:
+        print("❌ Generator not available")
+        return
+    
+    demo = demo_app.create_interface()
+    
+    print("🚀 Interface ready!")
+    demo.launch(
+        server_name="0.0.0.0",
+        server_port=7860,
+        share=False,
+        debug=True
+    )
 
 if __name__ == "__main__":
     main()
-    main()
+
