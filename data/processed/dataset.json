@@ -1,0 +1,1501 @@
+[
+  {
+    "name":"A1",
+    "ingredients":[
+      "gin",
+      "grand marnier",
+      "lemon juice",
+      "grenadine"
+    ],
+    "measurements":[
+      "1 3\/4 shot",
+      "1 Shot",
+      "1\/4 Shot",
+      "1\/8 Shot"
+    ]
+  },
+  {
+    "name":"Ace",
+    "ingredients":[
+      "gin",
+      "grenadine",
+      "heavy cream",
+      "milk",
+      "egg white"
+    ],
+    "measurements":[
+      "2 shots",
+      "1\/2 shot",
+      "1\/2 shot",
+      "1\/2 shot",
+      "1\/2 Fresh"
+    ]
+  },
+  {
+    "name":"Addison",
+    "ingredients":[
+      "gin",
+      "vermouth"
+    ],
+    "measurements":[
+      "1 1\/2 shot",
+      "1 1\/2 shot"
+    ]
+  },
+  {
+    "name":"Aviation",
+    "ingredients":[
+      "gin",
+      "lemon juice",
+      "maraschino liqueur"
+    ],
+    "measurements":[
+      "4.5 cl",
+      "1.5 cl",
+      "1.5 cl"
+    ]
+  },
+  {
+    "name":"Addington",
+    "ingredients":[
+      "sweet vermouth",
+      "dry vermouth",
+      "soda water"
+    ],
+    "measurements":[
+      "2 shots",
+      "1 shot",
+      "Top up with"
+    ]
+  },
+  {
+    "name":"Bijou",
+    "ingredients":[
+      "orange bitters",
+      "green chartreuse",
+      "gin",
+      "sweet vermouth"
+    ],
+    "measurements":[
+      "1 dash",
+      "1 oz",
+      "1 oz",
+      "1 oz"
+    ]
+  },
+  {
+    "name":"Brooklyn",
+    "ingredients":[
+      "rye whiskey",
+      "dry vermouth",
+      "maraschino liqueur",
+      "angostura bitters",
+      "maraschino cherry"
+    ],
+    "measurements":[
+      "2 oz",
+      "1 oz",
+      "1\/4 oz",
+      "3 dashes",
+      "1"
+    ]
+  },
+  {
+    "name":"Brigadier",
+    "ingredients":[
+      "hot chocolate",
+      "green chartreuse",
+      "cherry heering"
+    ],
+    "measurements":[
+      "4 oz",
+      "1 oz",
+      "1 oz"
+    ]
+  },
+  {
+    "name":"Broadside",
+    "ingredients":[
+      "151 proof rum",
+      "scotch",
+      "bitters",
+      "wormwood",
+      "ice"
+    ],
+    "measurements":[
+      "1 shot",
+      "1\/2 shot",
+      "3 drops",
+      "1 Fresh",
+      "cubes"
+    ]
+  },
+  {
+    "name":"Bahama Mama",
+    "ingredients":[
+      "rum",
+      "dark rum",
+      "banana liqueur",
+      "grenadine",
+      "pineapple juice",
+      "orange juice",
+      "sweet and sour"
+    ],
+    "measurements":[
+      "3 parts",
+      "1 part",
+      "1 part",
+      "1 part",
+      "2 parts",
+      "2 parts",
+      "1 part"
+    ]
+  },
+  {
+    "name":"Cream Soda",
+    "ingredients":[
+      "spiced rum",
+      "ginger ale"
+    ],
+    "measurements":[
+      "1 oz",
+      ""
+    ]
+  },
+  {
+    "name":"Corn n Oil",
+    "ingredients":[
+      "lime",
+      "falernum",
+      "angostura bitters",
+      "a\u00f1ejo rum",
+      "blackstrap rum"
+    ],
+    "measurements":[
+      "1\/2",
+      "1\/3 oz",
+      "2 dashes",
+      "1 oz",
+      "1 oz"
+    ]
+  },
+  {
+    "name":"Cosmopolitan",
+    "ingredients":[
+      "vodka",
+      "lime juice",
+      "cointreau",
+      "cranberry juice"
+    ],
+    "measurements":[
+      "1 1\/4 oz",
+      "1\/4 oz",
+      "1\/4 oz",
+      "1\/4 cup"
+    ]
+  },
+  {
+    "name":"Corpse Reviver",
+    "ingredients":[
+      "gin",
+      "triple sec",
+      "lillet blanc",
+      "lemon juice",
+      "absinthe"
+    ],
+    "measurements":[
+      "3\/4 oz",
+      "3\/4 oz",
+      "3\/4 oz",
+      "3\/4 oz",
+      "1 dash"
+    ]
+  },
+  {
+    "name":"Dry Martini",
+    "ingredients":[
+      "gin",
+      "dry vermouth",
+      "olive"
+    ],
+    "measurements":[
+      "1 2\/3 oz",
+      "1\/3 oz",
+      "1"
+    ]
+  },
+  {
+    "name":"Dirty Martini",
+    "ingredients":[
+      "vodka",
+      "dry vermouth",
+      "olive brine",
+      "lemon",
+      "olive"
+    ],
+    "measurements":[
+      "70ml\/2fl oz",
+      "1 tbsp",
+      "2 tbsp",
+      "1 wedge",
+      "1"
+    ]
+  },
+  {
+    "name":"Dark Caipirinha",
+    "ingredients":[
+      "demerara sugar",
+      "lime",
+      "cachaca"
+    ],
+    "measurements":[
+      "2 tsp",
+      "1",
+      "2 1\/2 oz"
+    ]
+  },
+  {
+    "name":"Duchamp's Punch",
+    "ingredients":[
+      "pisco",
+      "lime juice",
+      "pineapple syrup",
+      "st. germain",
+      "angostura bitters",
+      "pepper",
+      "lavender"
+    ],
+    "measurements":[
+      "5 cl",
+      "2.5 cl",
+      "2.5 cl",
+      "1.5 cl",
+      "2 Dashes",
+      "Pinch",
+      "2 sprigs"
+    ]
+  },
+  {
+    "name":"Death in the Afternoon",
+    "ingredients":[
+      "absinthe",
+      "champagne"
+    ],
+    "measurements":[
+      "2 shots",
+      "Top"
+    ]
+  },
+  {
+    "name":"Espresso Martini",
+    "ingredients":[
+      "vodka",
+      "kahlua",
+      "sugar syrup"
+    ],
+    "measurements":[
+      "5 cl",
+      "1 cl",
+      "1 dash"
+    ]
+  },
+  {
+    "name":"Espresso Rumtini",
+    "ingredients":[
+      "rum",
+      "vanilla syrup",
+      "espresso",
+      "coffee"
+    ],
+    "measurements":[
+      "1 shot",
+      "1\/2 shot",
+      "1 shot",
+      "1 shot"
+    ]
+  },
+  {
+    "name":"Elderflower Caipirinha",
+    "ingredients":[
+      "cachaca",
+      "lime",
+      "elderflower cordial"
+    ],
+    "measurements":[
+      "60 ml",
+      "1",
+      "3 cl"
+    ]
+  },
+  {
+    "name":"Empell\u00f3n Cocina's Fat-Washed Mezcal",
+    "ingredients":[
+      "mezcal",
+      "chocolate liqueur",
+      "coffee liqueur"
+    ],
+    "measurements":[
+      "2 oz",
+      "3\/4 oz",
+      "1\/2 oz"
+    ]
+  },
+  {
+    "name":"Fros\u00e9",
+    "ingredients":[
+      "rose",
+      "sugar",
+      "strawberries",
+      "lemon juice"
+    ],
+    "measurements":[
+      "750 ml",
+      "1\/2 cup",
+      "8 oz",
+      "2-3 oz"
+    ]
+  },
+  {
+    "name":"Figgy Thyme",
+    "ingredients":[
+      "vodka",
+      "honey",
+      "figs",
+      "thyme",
+      "angostura bitters",
+      "tonic water"
+    ],
+    "measurements":[
+      "2 oz",
+      "1 tsp",
+      "3",
+      "1 Sprig",
+      "2 dashes",
+      "Top"
+    ]
+  },
+  {
+    "name":"Funk and Soul",
+    "ingredients":[
+      "rum",
+      "apricot nectar",
+      "pomegranate juice",
+      "lemon",
+      "soda water"
+    ],
+    "measurements":[
+      "2 shots",
+      "1 shot",
+      "1 shot",
+      "Juice of 1\/2",
+      "Top"
+    ]
+  },
+  {
+    "name":"French Martini",
+    "ingredients":[
+      "vodka",
+      "raspberry liqueur",
+      "pineapple juice"
+    ],
+    "measurements":[
+      "4.5 cl",
+      "1.5 cl",
+      "1.5 cl"
+    ]
+  },
+  {
+    "name":"French Negroni",
+    "ingredients":[
+      "gin",
+      "lillet",
+      "sweet vermouth",
+      "orange peel"
+    ],
+    "measurements":[
+      "1 oz",
+      "1 oz",
+      "1 oz",
+      "1"
+    ]
+  },
+  {
+    "name":"Flaming Lamborghini",
+    "ingredients":[
+      "kahlua",
+      "sambuca",
+      "blue curacao",
+      "baileys irish cream"
+    ],
+    "measurements":[
+      "1 oz",
+      "1 oz",
+      "1 oz",
+      "1 oz"
+    ]
+  },
+  {
+    "name":"Gimlet",
+    "ingredients":[
+      "gin",
+      "lime juice",
+      "sugar syrup",
+      "lime"
+    ],
+    "measurements":[
+      "2 1\/2 oz",
+      "1\/2 oz",
+      "1\/2 oz",
+      "1"
+    ]
+  },
+  {
+    "name":"Gagliardo",
+    "ingredients":[
+      "peach vodka",
+      "lemon juice",
+      "galliano",
+      "sirup of roses"
+    ],
+    "measurements":[
+      "5 parts",
+      "3 parts",
+      "1 part",
+      "1 part"
+    ]
+  },
+  {
+    "name":"Gin Tonic",
+    "ingredients":[
+      "gin",
+      "tonic water",
+      "lemon peel",
+      "ice"
+    ],
+    "measurements":[
+      "4 cl",
+      "10 cl",
+      "1 Slice",
+      "cubes"
+    ]
+  },
+  {
+    "name":"Gin Lemon",
+    "ingredients":[
+      "gin",
+      "lemon juice",
+      "lemon peel",
+      "ice"
+    ],
+    "measurements":[
+      "6 cl",
+      "8 cl",
+      "1 Slice",
+      "cubes"
+    ]
+  },
+  {
+    "name":"Greyhound",
+    "ingredients":[
+      "vodka",
+      "grapefruit juice"
+    ],
+    "measurements":[
+      "1 1\/2 oz",
+      "3 oz"
+    ]
+  },
+  {
+    "name":"Gin Rickey",
+    "ingredients":[
+      "gin",
+      "grenadine",
+      "lemon",
+      "soda water",
+      "lime"
+    ],
+    "measurements":[
+      "2 oz",
+      "1 tsp",
+      "Juice of 1\/2",
+      "Top up with",
+      "Garnish"
+    ]
+  },
+  {
+    "name":"Gin and Soda",
+    "ingredients":[
+      "gin",
+      "soda water",
+      "lime"
+    ],
+    "measurements":[
+      "2 oz",
+      "5 oz",
+      "1\/4"
+    ]
+  },
+  {
+    "name":"Honey Bee",
+    "ingredients":[
+      "white rum",
+      "honey",
+      "lemon juice"
+    ],
+    "measurements":[
+      "6 cl",
+      "2 cl",
+      "2 cl"
+    ]
+  },
+  {
+    "name":"Hot Toddy",
+    "ingredients":[
+      "whiskey",
+      "honey",
+      "cinnamon",
+      "lemon",
+      "cloves"
+    ],
+    "measurements":[
+      "50 ml",
+      "15 ml",
+      "1",
+      "1",
+      "2"
+    ]
+  },
+  {
+    "name":"Hunter's Moon",
+    "ingredients":[
+      "vermouth",
+      "maraschino cherry",
+      "sugar syrup",
+      "lemonade",
+      "blackberries"
+    ],
+    "measurements":[
+      "25 ml",
+      "15 ml",
+      "10 ml",
+      "100 ml",
+      "2"
+    ]
+  },
+  {
+    "name":"Imperial Cocktail",
+    "ingredients":[
+      "lime juice",
+      "gin",
+      "aperol"
+    ],
+    "measurements":[
+      "4 cl",
+      "2 cl",
+      "4 cl"
+    ]
+  },
+  {
+    "name":"Irish Curdling Cow",
+    "ingredients":[
+      "baileys irish cream",
+      "bourbon",
+      "vodka",
+      "orange juice"
+    ],
+    "measurements":[
+      "3\/4 oz",
+      "3\/4 oz",
+      "3\/4 oz",
+      "2-3 oz"
+    ]
+  },
+  {
+    "name":"Jitterbug",
+    "ingredients":[
+      "gin",
+      "vodka",
+      "grenadine",
+      "lime juice",
+      "sugar",
+      "sugar syrup",
+      "soda water"
+    ],
+    "measurements":[
+      "2 jiggers",
+      "1 jigger",
+      "3 dashes",
+      "1 shot",
+      "Around rim put 1 pinch",
+      "3 dashes",
+      "Fill to top with"
+    ]
+  },
+  {
+    "name":"Kiwi Martini",
+    "ingredients":[
+      "kiwi",
+      "sugar syrup",
+      "vodka",
+      "kiwi"
+    ],
+    "measurements":[
+      "1\/2",
+      "1 tsp",
+      "1 1\/2 oz",
+      "Garnish with"
+    ]
+  },
+  {
+    "name":"Lemon Drop",
+    "ingredients":[
+      "vodka",
+      "cointreau",
+      "lemon"
+    ],
+    "measurements":[
+      "1 1\/2 shot",
+      "1 1\/2 shot",
+      "Juice of 1 wedge"
+    ]
+  },
+  {
+    "name":"Lazy Coconut Paloma",
+    "ingredients":[
+      "coconut liqueur",
+      "grapefruit juice",
+      "soda water"
+    ],
+    "measurements":[
+      "30 ml",
+      "75 ml",
+      "Top"
+    ]
+  },
+  {
+    "name":"Lemon Elderflower Spritzer",
+    "ingredients":[
+      "elderflower cordial",
+      "vodka",
+      "soda water",
+      "fresh lemon juice"
+    ],
+    "measurements":[
+      "2 tsp",
+      "1 shot",
+      "1\/3 cup",
+      "Top"
+    ]
+  },
+  {
+    "name":"Mojito",
+    "ingredients":[
+      "light rum",
+      "lime",
+      "sugar",
+      "mint",
+      "soda water"
+    ],
+    "measurements":[
+      "2-3 oz",
+      "Juice of 1",
+      "2 tsp",
+      "2-4",
+      ""
+    ]
+  },
+  {
+    "name":"Martini",
+    "ingredients":[
+      "gin",
+      "dry vermouth",
+      "olive"
+    ],
+    "measurements":[
+      "1 2\/3 oz",
+      "1\/3 oz",
+      "1"
+    ]
+  },
+  {
+    "name":"Michelada",
+    "ingredients":[
+      "beer",
+      "tomato juice",
+      "lime juice",
+      "hot sauce",
+      "worcestershire sauce",
+      "soy sauce"
+    ],
+    "measurements":[
+      "4 oz",
+      "4 oz",
+      "1 tblsp",
+      "Dash",
+      "Dash",
+      "Dash"
+    ]
+  },
+  {
+    "name":"Manhattan",
+    "ingredients":[
+      "sweet vermouth",
+      "bourbon",
+      "angostura bitters",
+      "ice",
+      "maraschino cherry",
+      "orange peel"
+    ],
+    "measurements":[
+      "3\/4 oz",
+      "2 1\/2 oz Blended",
+      "dash",
+      "2 or 3",
+      "1",
+      "1 twist of"
+    ]
+  },
+  {
+    "name":"Mauresque",
+    "ingredients":[
+      "ricard",
+      "orgeat syrup",
+      "water"
+    ],
+    "measurements":[
+      "3 cl",
+      "1 cl",
+      "Full Glass"
+    ]
+  },
+  {
+    "name":"Martinez 2",
+    "ingredients":[
+      "gin",
+      "sweet vermouth",
+      "maraschino liqueur",
+      "angostura bitters"
+    ],
+    "measurements":[
+      "1 1\/2 oz",
+      "1 1\/2 oz",
+      "1 tsp",
+      "2 dashes"
+    ]
+  },
+  {
+    "name":"Miami Vice",
+    "ingredients":[
+      "151 proof rum",
+      "pina colada mix",
+      "daiquiri mix"
+    ],
+    "measurements":[
+      "5 oz Bacardi",
+      "frozen",
+      "frozen"
+    ]
+  },
+  {
+    "name":"Munich Mule",
+    "ingredients":[
+      "gin",
+      "lime juice",
+      "ginger beer",
+      "cucumber",
+      "lemon"
+    ],
+    "measurements":[
+      "5 cl",
+      "2 cl",
+      "10 cl",
+      "Chopped",
+      "Chopped"
+    ]
+  },
+  {
+    "name":"Mango Mojito",
+    "ingredients":[
+      "lime",
+      "mango",
+      "mint",
+      "white rum",
+      "ice",
+      "soda water",
+      "mango"
+    ],
+    "measurements":[
+      "3",
+      "1 Fresh",
+      "Sprig",
+      "200 ml",
+      "cubes",
+      "Top",
+      "Garnish with"
+    ]
+  },
+  {
+    "name":"Mojito Extra",
+    "ingredients":[
+      "mint",
+      "lemon juice",
+      "dark rum",
+      "club soda",
+      "angostura bitters"
+    ],
+    "measurements":[
+      "1\/2 handful",
+      "3 cl",
+      "1\/8 L Jamaican",
+      "1\/8 L",
+      "8 drops"
+    ]
+  },
+  {
+    "name":"Midnight Mint",
+    "ingredients":[
+      "baileys irish cream",
+      "white creme de menthe",
+      "cream"
+    ],
+    "measurements":[
+      "1 oz",
+      "3\/4 oz",
+      "3\/4 oz double"
+    ]
+  },
+  {
+    "name":"Mary Pickford",
+    "ingredients":[
+      "light rum",
+      "pineapple juice",
+      "maraschino liqueur",
+      "grenadine",
+      "maraschino cherry"
+    ],
+    "measurements":[
+      "1 1\/2 oz",
+      "1 oz",
+      "1\/2 tsp",
+      "1\/2 tsp",
+      "1"
+    ]
+  },
+  {
+    "name":"New York Lemonade",
+    "ingredients":[
+      "absolut citron",
+      "grand marnier",
+      "lemon juice",
+      "club soda"
+    ],
+    "measurements":[
+      "2 oz",
+      "1 oz",
+      "2 oz sweetened",
+      "1 oz"
+    ]
+  },
+  {
+    "name":"Old Pal",
+    "ingredients":[
+      "rye whiskey",
+      "campari",
+      "dry vermouth"
+    ],
+    "measurements":[
+      "2 oz",
+      "1 oz",
+      "1 oz"
+    ]
+  },
+  {
+    "name":"Old Cuban",
+    "ingredients":[
+      "white rum",
+      "sugar syrup",
+      "lime juice",
+      "angostura bitters",
+      "prosecco"
+    ],
+    "measurements":[
+      "2 oz",
+      "1 oz",
+      "1 oz",
+      "2 dashes",
+      "2 oz"
+    ]
+  },
+  {
+    "name":"Old Fashioned",
+    "ingredients":[
+      "bourbon",
+      "angostura bitters",
+      "sugar",
+      "water"
+    ],
+    "measurements":[
+      "4.5 cL",
+      "2 dashes",
+      "1 cube",
+      "dash"
+    ]
+  },
+  {
+    "name":"Oatmeal Cookie",
+    "ingredients":[
+      "kahlua",
+      "baileys irish cream",
+      "butterscotch schnapps",
+      "jagermeister",
+      "goldschlager"
+    ],
+    "measurements":[
+      "2 parts",
+      "2 parts",
+      "4 parts",
+      "1 part",
+      "1\/2 part"
+    ]
+  },
+  {
+    "name":"Orange Rosemary Collins",
+    "ingredients":[
+      "gin",
+      "orange juice",
+      "lemon juice",
+      "rosemary syrup",
+      "soda water",
+      "rosemary",
+      "orange peel"
+    ],
+    "measurements":[
+      "1 shot",
+      "Top",
+      "Top",
+      "25 ml",
+      "Top",
+      "Garnish with",
+      "Garnish with"
+    ]
+  },
+  {
+    "name":"Paloma",
+    "ingredients":[
+      "grape soda",
+      "tequila"
+    ],
+    "measurements":[
+      "3 oz",
+      "1 1\/2 oz"
+    ]
+  },
+  {
+    "name":"Pegu Club",
+    "ingredients":[
+      "gin",
+      "orange curacao",
+      "lime juice",
+      "angostura bitters",
+      "orange bitters"
+    ],
+    "measurements":[
+      "1 1\/2 oz",
+      "3\/4 oz",
+      "3\/4 oz",
+      "1 dash",
+      "1 dash"
+    ]
+  },
+  {
+    "name":"Pink Moon",
+    "ingredients":[
+      "gin",
+      "coconut liqueur",
+      "elderflower cordial",
+      "lime juice",
+      "blackberries"
+    ],
+    "measurements":[
+      "1 shot",
+      "1 shot",
+      "25 ml",
+      "30 ml",
+      "Garnish with"
+    ]
+  },
+  {
+    "name":"Penicillin",
+    "ingredients":[
+      "blended scotch",
+      "lemon juice",
+      "honey syrup",
+      "ginger syrup",
+      "islay single malt scotch"
+    ],
+    "measurements":[
+      "2 oz",
+      "3\/4 oz",
+      "2 tsp",
+      "2 tsp",
+      "1\/4 oz"
+    ]
+  },
+  {
+    "name":"Pisco Sour",
+    "ingredients":[
+      "pisco",
+      "lemon juice",
+      "sugar",
+      "ice",
+      "egg white"
+    ],
+    "measurements":[
+      "2 oz",
+      "1 oz",
+      "1-2 tblsp",
+      "1",
+      ""
+    ]
+  },
+  {
+    "name":"Pure Passion",
+    "ingredients":[
+      "rum",
+      "passoa",
+      "lime juice",
+      "passion fruit syrup",
+      "peach bitters",
+      "mint"
+    ],
+    "measurements":[
+      "40 ml",
+      "20 ml",
+      "30 ml",
+      "15 ml",
+      "Dash",
+      "Garnish with"
+    ]
+  },
+  {
+    "name":"Pineapple Paloma",
+    "ingredients":[
+      "tequila",
+      "grapefruit juice",
+      "fresh lime juice",
+      "pineapple juice",
+      "lime",
+      "pepper"
+    ],
+    "measurements":[
+      "4 oz",
+      "4 oz",
+      "1 oz",
+      "8 oz",
+      "Garnish with",
+      "Rimmed"
+    ]
+  },
+  {
+    "name":"Pornstar Martini",
+    "ingredients":[
+      "vodka",
+      "passoa",
+      "passion fruit juice",
+      "lime",
+      "prosecco"
+    ],
+    "measurements":[
+      "3 cl",
+      "3 cl",
+      "1 cl",
+      "1 cl",
+      "1 shot"
+    ]
+  },
+  {
+    "name":"Planter\u2019s Punch",
+    "ingredients":[
+      "dark rum",
+      "orange juice",
+      "pineapple juice",
+      "grenadine",
+      "sugar syrup",
+      "angostura bitters"
+    ],
+    "measurements":[
+      "4.5 cL",
+      "3 cl",
+      "3.5 cl",
+      "1 cl",
+      "1 cl",
+      "4 drops"
+    ]
+  },
+  {
+    "name":"Passion Fruit Martini",
+    "ingredients":[
+      "vodka",
+      "sugar syrup",
+      "passion fruit juice"
+    ],
+    "measurements":[
+      "1 shot",
+      "1\/2 shot",
+      "Full Glass"
+    ]
+  },
+  {
+    "name":"Ruby Tuesday",
+    "ingredients":[
+      "gin",
+      "cranberry juice",
+      "grenadine"
+    ],
+    "measurements":[
+      "2 oz",
+      "5 oz",
+      "2 splashes"
+    ]
+  },
+  {
+    "name":"Rosemary Blue",
+    "ingredients":[
+      "gin",
+      "blue curacao",
+      "tonic water",
+      "rosemary"
+    ],
+    "measurements":[
+      "50 ml",
+      "15 ml",
+      "100 ml",
+      "Garnish with"
+    ]
+  },
+  {
+    "name":"Ramos Gin Fizz",
+    "ingredients":[
+      "gin",
+      "lemon juice",
+      "sugar syrup",
+      "cream",
+      "egg white",
+      "vanilla extract",
+      "soda water"
+    ],
+    "measurements":[
+      "4.5 cL",
+      "3 cl",
+      "3 cl",
+      "6 cl",
+      "1",
+      "2 drop",
+      "2 cl"
+    ]
+  },
+  {
+    "name":"Raspberry Julep",
+    "ingredients":[
+      "bourbon",
+      "raspberry syrup",
+      "mint"
+    ],
+    "measurements":[
+      "2 oz",
+      "1\/2 oz",
+      "8"
+    ]
+  },
+  {
+    "name":"Snowday",
+    "ingredients":[
+      "vodka",
+      "amaro montenegro",
+      "ruby port",
+      "blood orange",
+      "angostura bitters",
+      "orange peel"
+    ],
+    "measurements":[
+      "1 oz",
+      "1 oz",
+      "1 oz",
+      "1 tsp",
+      "Dash",
+      "Garnish with"
+    ]
+  },
+  {
+    "name":"Spice 75",
+    "ingredients":[
+      "sugar",
+      "allspice",
+      "rum",
+      "lime juice",
+      "champagne",
+      "orange spiral"
+    ],
+    "measurements":[
+      "60 ml",
+      "1 tblsp",
+      "20 cl",
+      "90 ml",
+      "6 cl",
+      "Garnish with"
+    ]
+  },
+  {
+    "name":"Shark Attack",
+    "ingredients":[
+      "lemonade",
+      "water",
+      "vodka"
+    ],
+    "measurements":[
+      "1 can",
+      "3 cans",
+      "1 1\/2 cup"
+    ]
+  },
+  {
+    "name":"The Galah",
+    "ingredients":[
+      "dark rum",
+      "campari",
+      "creme de banane",
+      "pineapple juice",
+      "lime juice"
+    ],
+    "measurements":[
+      "1 shot",
+      "1 shot",
+      "1\/2 shot",
+      "Top",
+      "Top"
+    ]
+  },
+  {
+    "name":"Tipperary",
+    "ingredients":[
+      "irish whiskey",
+      "sweet vermouth",
+      "green chartreuse"
+    ],
+    "measurements":[
+      "2 oz",
+      "1 oz",
+      "1\/2 oz"
+    ]
+  },
+  {
+    "name":"The Last Word",
+    "ingredients":[
+      "green chartreuse",
+      "maraschino liqueur",
+      "lime juice",
+      "gin"
+    ],
+    "measurements":[
+      "1 oz",
+      "1 oz",
+      "1 oz",
+      "1 oz"
+    ]
+  },
+  {
+    "name":"The Laverstoke",
+    "ingredients":[
+      "gin",
+      "elderflower cordial",
+      "rosso vermouth",
+      "tonic water",
+      "lime",
+      "ginger",
+      "mint"
+    ],
+    "measurements":[
+      "50 ml",
+      "15 ml",
+      "15 ml",
+      "75 ml",
+      "2 Wedges",
+      "1 Slice",
+      "1 Large Sprig"
+    ]
+  },
+  {
+    "name":"Tequila Sunrise",
+    "ingredients":[
+      "tequila",
+      "orange juice",
+      "grenadine"
+    ],
+    "measurements":[
+      "2 measures",
+      "",
+      ""
+    ]
+  },
+  {
+    "name":"The Philosopher",
+    "ingredients":[
+      "gin",
+      "melon liqueur",
+      "orange bitters",
+      "lemon juice",
+      "prosecco"
+    ],
+    "measurements":[
+      "1 shot",
+      "1 shot",
+      "1 dash",
+      "1 dash",
+      "Top"
+    ]
+  },
+  {
+    "name":"The Jimmy Conway",
+    "ingredients":[
+      "irish whiskey",
+      "amaretto",
+      "cranberry juice"
+    ],
+    "measurements":[
+      "50 ml",
+      "50 ml",
+      "4 oz"
+    ]
+  },
+  {
+    "name":"Vesper",
+    "ingredients":[
+      "gin",
+      "vodka",
+      "lillet blanc"
+    ],
+    "measurements":[
+      "6 cl",
+      "1.5 cl",
+      "0.75 cl"
+    ]
+  },
+  {
+    "name":"Vodka Lemon",
+    "ingredients":[
+      "vodka",
+      "lemon juice",
+      "lemon peel",
+      "ice"
+    ],
+    "measurements":[
+      "5 cl",
+      "7 cl",
+      "1 Slice",
+      "cubes"
+    ]
+  },
+  {
+    "name":"Vodka Slime",
+    "ingredients":[
+      "sprite",
+      "lime juice",
+      "vodka"
+    ],
+    "measurements":[
+      "1 cup",
+      "1\/2 shot",
+      "1 1\/2 shot"
+    ]
+  },
+  {
+    "name":"Vodka Tonic",
+    "ingredients":[
+      "vodka",
+      "tonic water",
+      "lemon peel"
+    ],
+    "measurements":[
+      "4 cl",
+      "10 cl",
+      "1 Slice"
+    ]
+  },
+  {
+    "name":"Winter Paloma",
+    "ingredients":[
+      "tequila",
+      "grapefruit juice",
+      "lime juice",
+      "agave syrup",
+      "pepper"
+    ],
+    "measurements":[
+      "2 shots",
+      "Top",
+      "Juice of 1",
+      "1 tsp",
+      "Dash"
+    ]
+  },
+  {
+    "name":"Yellow Bird",
+    "ingredients":[
+      "white rum",
+      "galliano",
+      "triple sec",
+      "lime juice"
+    ],
+    "measurements":[
+      "3 cl",
+      "1.5 cl",
+      "1.5 cl",
+      "1.5 cl"
+    ]
+  },
+  {
+    "name":"Zombie",
+    "ingredients":[
+      "rum",
+      "gold rum",
+      "151 proof rum",
+      "pernod",
+      "grenadine",
+      "lime juice",
+      "angostura bitters"
+    ],
+    "measurements":[
+      "1 1\/2 oz",
+      "1 1\/2 oz",
+      "1 oz",
+      "1 tsp",
+      "1 tsp",
+      "1 tsp",
+      "1 drop"
+    ]
+  },
+  {
+    "name":"Zorbatini",
+    "ingredients":[
+      "vodka",
+      "ouzo"
+    ],
+    "measurements":[
+      "1 1\/4 oz Stoli",
+      "1\/4 oz"
+    ]
+  },
+  {
+    "name":"Zippy's Revenge",
+    "ingredients":[
+      "amaretto",
+      "rum",
+      "kool-aid"
+    ],
+    "measurements":[
+      "2 oz",
+      "2 oz",
+      "4 oz Grape"
+    ]
+  }
+]
