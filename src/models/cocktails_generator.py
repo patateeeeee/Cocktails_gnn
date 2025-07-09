@@ -309,8 +309,8 @@ class CocktailGenerator:
             category = self._categorize_ingredient(ingredient)
             
             if category == 'spirit':
-                # Spiritueux de base : 45-60ml (standard)
-                proportions[ingredient] = f"{np.random.randint(45, 61)} ml"
+                # Spiritueux de base : 25-41ml (standard)
+                proportions[ingredient] = f"{np.random.randint(25, 41)} ml"
             
             elif category == 'liqueur':
                 # Liqueurs : 15-30ml maximum
