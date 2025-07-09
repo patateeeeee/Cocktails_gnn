@@ -199,9 +199,10 @@ class CocktailGenerator:
             complement_bonus = self._get_complement_bonus(current_ingredients, candidate)
             
             # Score final équilibré
+
             final_score = (
-                0.4 * real_score +      # 40% basé sur les vrais cocktails
-                0.3 * similarity +      # 30% basé sur les embeddings
+                (1-creativity) * real_score +      # 40% basé sur les vrais cocktails
+                creativity * similarity +      # 30% basé sur les embeddings
                 0.2 * complement_bonus + # 20% pour l'équilibre
                 0.1 * np.random.random() # 10% aléatoire
             )
@@ -302,15 +303,15 @@ class CocktailGenerator:
     def _generate_proportions(self, ingredients: List[str]) -> Dict[str, str]:
         """Génère des proportions RÉALISTES basées sur la mixologie classique"""
         proportions = {}
-        composition = self._analyze_composition(ingredients)
         
         # PROPORTIONS RÉALISTES PAR TYPE
         for ingredient in ingredients:
             category = self._categorize_ingredient(ingredient)
+            ingredient_lower = ingredient.lower()
             
             if category == 'spirit':
-                # Spiritueux de base : 25-41ml (standard)
-                proportions[ingredient] = f"{np.random.randint(25, 41)} ml"
+                # Spiritueux de base : 45-60ml (standard)
+                proportions[ingredient] = f"{np.random.randint(45, 61)} ml"
             
             elif category == 'liqueur':
                 # Liqueurs : 15-30ml maximum
@@ -320,29 +321,83 @@ class CocktailGenerator:
                 # Vermouths : 15-25ml
                 proportions[ingredient] = f"{np.random.randint(15, 26)} ml"
             
+            elif category == 'sparkling_wine':
+                # Champagne/Prosecco : 60-100ml (top up)
+                proportions[ingredient] = f"{np.random.randint(60, 101)} ml"
+            
             elif category == 'citrus':
                 # Jus d'agrumes : 10-20ml
-                if 'juice' in ingredient.lower():
+                if 'juice' in ingredient_lower:
                     proportions[ingredient] = f"{np.random.randint(10, 21)} ml"
                 else:
                     proportions[ingredient] = f"{np.random.randint(8, 16)} ml"
             
             elif category == 'sweetener':
-                # Sirops : 5-15ml
-                proportions[ingredient] = f"{np.random.randint(5, 16)} ml"
+                # Sirops et édulcorants : proportions spécifiques
+                if 'elderflower cordial' in ingredient_lower:
+                    proportions[ingredient] = f"{np.random.randint(10, 21)} ml"
+                elif 'honey' in ingredient_lower:
+                    proportions[ingredient] = f"{np.random.randint(8, 16)} ml"
+                elif 'sugar' in ingredient_lower and 'syrup' not in ingredient_lower:
+                    proportions[ingredient] = f"{np.random.randint(1, 3)} tsp"
+                else:
+                    proportions[ingredient] = f"{np.random.randint(5, 16)} ml"
             
             elif category == 'bitters':
                 # Amers : 2-4 dashes
                 proportions[ingredient] = f"{np.random.randint(2, 5)} dashes"
             
-            else:
-                # Autres modificateurs
-                if any(word in ingredient.lower() for word in ['water', 'soda', 'tonic']):
+            elif category == 'mixer':
+                # Sodas et allongeurs
+                if any(word in ingredient_lower for word in ['water', 'soda', 'tonic', 'lemonade']):
                     proportions[ingredient] = "top up"
-                elif 'ice' in ingredient.lower():
+                else:
+                    proportions[ingredient] = f"{np.random.randint(60, 101)} ml"
+            
+            elif category == 'garnish':
+                # Garnitures spécifiques
+                if 'maraschino cherry' in ingredient_lower:
+                    proportions[ingredient] = "1 cherry"
+                elif 'cherry' in ingredient_lower:
+                    proportions[ingredient] = "1-2 cherries"
+                elif 'olive' in ingredient_lower:
+                    proportions[ingredient] = "1-2 olives"
+                elif 'peel' in ingredient_lower or 'twist' in ingredient_lower:
+                    proportions[ingredient] = "1 twist"
+                elif 'slice' in ingredient_lower:
+                    proportions[ingredient] = "1 slice"
+                elif 'wedge' in ingredient_lower:
+                    proportions[ingredient] = "1 wedge"
+                elif 'sprig' in ingredient_lower or 'rosemary' in ingredient_lower:
+                    proportions[ingredient] = "1 sprig"
+                elif 'mint' in ingredient_lower:
+                    proportions[ingredient] = "6-8 leaves"
+                elif any(fruit in ingredient_lower for fruit in ['blackberries', 'kiwi', 'mango']):
+                    proportions[ingredient] = "garnish"
+                else:
+                    proportions[ingredient] = "garnish"
+            
+            elif category == 'texture':
+                # Ingrédients texturants
+                if 'egg white' in ingredient_lower:
+                    proportions[ingredient] = "1 egg white"
+                elif 'cream' in ingredient_lower:
+                    proportions[ingredient] = f"{np.random.randint(10, 21)} ml"
+                elif 'ice' in ingredient_lower:
                     proportions[ingredient] = "cubes"
                 else:
-                    proportions[ingredient] = "to your taste"
+                    proportions[ingredient] = f"{np.random.randint(10, 21)} ml"
+            
+            elif category == 'spice':
+                # Épices
+                if 'pepper' in ingredient_lower:
+                    proportions[ingredient] = "pinch"
+                else:
+                    proportions[ingredient] = "pinch"
+            
+            else:
+                # Autres modificateurs - cas spéciaux
+                proportions[ingredient] = "to taste"
         
         return proportions
     
@@ -568,42 +623,74 @@ class CocktailGenerator:
         return categories
     
     def _categorize_ingredient(self, ingredient: str) -> str:
-        """Catégorise un ingrédient selon son type"""
+        """Catégorise un ingrédient selon son type basé sur TOUS les ingrédients du dataset"""
         ingredient_lower = ingredient.lower()
         
-        # Spiritueux (alcools forts)
+        # Spiritueux (alcools forts de base)
         if any(spirit in ingredient_lower for spirit in 
-               ['gin', 'vodka', 'rum', 'whiskey', 'whisky', 'tequila', 'brandy', 'cognac', 'bourbon']):
+               ['gin', 'vodka', 'rum', 'whiskey', 'whisky', 'tequila', 'brandy', 'cognac', 'bourbon',
+                'rye whiskey', '151 proof rum', 'dark rum', 'white rum', 'light rum', 'cachaca', 
+                'pisco', 'absinthe', 'irish whiskey']):
             return 'spirit'
         
         # Liqueurs (alcools sucrés/aromatisés)
         elif any(liqueur in ingredient_lower for liqueur in 
                 ['cointreau', 'triple sec', 'amaretto', 'kahlua', 'baileys', 'grand marnier', 
                  'chambord', 'frangelico', 'drambuie', 'chartreuse', 'benedictine', 'licor',
-                 'liqueur', 'schnapps', 'sambuca', 'ouzo']):
+                 'liqueur', 'schnapps', 'sambuca', 'ouzo', 'maraschino liqueur', 'green chartreuse',
+                 'blue curacao', 'baileys irish cream', 'galliano', 'coconut liqueur', 'passoa']):
             return 'liqueur'
         
         # Vermouths et vins fortifiés
         elif any(wine in ingredient_lower for wine in 
-                ['vermouth', 'sherry', 'port', 'madeira', 'marsala']):
+                ['vermouth', 'vermouth sweet', 'vermouth dry', 'sherry', 'port', 'madeira', 
+                 'marsala', 'lillet blanc']):
             return 'fortified_wine'
+        
+        # Vins pétillants et champagne
+        elif any(sparkling in ingredient_lower for sparkling in 
+                ['champagne', 'prosecco']):
+            return 'sparkling_wine'
         
         # Amers et bitters
         elif any(bitter in ingredient_lower for bitter in 
-                ['bitter', 'angostura', 'campari', 'aperol', 'fernet']):
+                ['bitter', 'bitters', 'orange bitters', 'angostura', 'campari', 'aperol', 'fernet']):
             return 'bitters'
         
-        # Jus et acidulants
+        # Jus et acidulants (agrumes et fruits)
         elif any(juice in ingredient_lower for juice in 
-                ['juice', 'lemon', 'lime', 'orange', 'grapefruit', 'cranberry']):
+                ['juice', 'lemon', 'lime', 'orange', 'grapefruit', 'cranberry', 'pineapple juice',
+                 'orange juice', 'cranberry juice', 'grapefruit juice', 'passion fruit juice']):
             return 'citrus'
         
         # Sirops et sucrants
         elif any(syrup in ingredient_lower for syrup in 
-                ['syrup', 'grenadine', 'honey', 'agave', 'simple']):
+                ['syrup', 'sugar syrup', 'grenadine', 'honey', 'agave', 'simple', 'sugar',
+                 'elderflower cordial']):
             return 'sweetener'
         
-        # Autres modificateurs
+        # Sodas et allongeurs
+        elif any(mixer in ingredient_lower for mixer in 
+                ['soda water', 'tonic water', 'club soda', 'water', 'lemonade']):
+            return 'mixer'
+        
+        # Garnitures et décorations
+        elif any(garnish in ingredient_lower for garnish in 
+                ['maraschino cherry', 'olive', 'orange peel', 'lemon peel', 'cherry', 'peel',
+                 'blackberries', 'kiwi', 'mango', 'rosemary', 'mint']):
+            return 'garnish'
+        
+        # Ingrédients texturants/protéinés
+        elif any(texture in ingredient_lower for texture in 
+                ['egg white', 'cream', 'ice']):
+            return 'texture'
+        
+        # Épices et assaisonnements
+        elif any(spice in ingredient_lower for spice in 
+                ['pepper']):
+            return 'spice'
+        
+        # Autres modificateurs (catch-all pour les ingrédients non classés)
         else:
             return 'modifier'
     
@@ -650,21 +737,7 @@ class CocktailGenerator:
         
         return True
     
-    def _find_similar_cocktails_by_ingredients(self, current_ingredients: List[str]) -> List[str]:
-        """Trouve les cocktails qui partagent des ingrédients avec la liste actuelle"""
-        similar_cocktails = []
-        current_set = set(current_ingredients)
-        
-        for cocktail in self.cocktail_nodes:
-            cocktail_ingredients = set(self.graph.neighbors(cocktail))
-            
-            # Calculer le score de similarité (Jaccard)
-            intersection = len(current_set & cocktail_ingredients)
-            if intersection > 0:  # Au moins un ingrédient en commun
-                similar_cocktails.append(cocktail)
-        
-        return similar_cocktails
-    
+  
     def _get_real_combination_score(self, current_ingredients: List[str], candidate: str) -> float:
         """Score basé sur la fréquence de cette combinaison dans les vrais cocktails"""
         current_set = set(current_ingredients + [candidate])
