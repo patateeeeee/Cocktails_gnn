@@ -4,10 +4,6 @@
 
 An AI-powered cocktail recipe generator that uses Graph Neural Networks (GNN) to create new cocktail recipes. The system can generate cocktails either randomly or with specific ingredients you provide, using learned embeddings to intelligently select compatible ingredients.
 
-![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
-![PyTorch](https://img.shields.io/badge/PyTorch-v1.9+-red.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-
 ## � Generation Modes
 
 ### 1. Classic Generation: MULTIPLE
@@ -59,7 +55,7 @@ Bipartite Graph:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/cocktail_gnn.git
+git clone https://github.com/patateeeeee/Cocktails_gnn.git
 cd cocktail_gnn
 
 # Create virtual environment
@@ -77,30 +73,7 @@ pip install -r requirements.txt
 python src/interface_cocktails.py
 ```
 
-#### Generate Cocktails Programmatically
-```python
-from models.cocktails_generator import CocktailGenerator
 
-generator = CocktailGenerator()
-
-# Generate with random creativity in a range
-cocktails = generator.generate_multiple_cocktails_with_creativity_bounds(
-    num_cocktails=5,
-    min_creativity=0.3,
-    max_creativity=0.8
-)
-
-# Generate with specific available ingredients
-available_ingredients = ['gin', 'lemon juice', 'sugar syrup', 'tonic water']
-cocktail = generator.generate_cocktail_with_limited_ingredients(
-    available_ingredients=available_ingredients,
-    creativity=0.6
-)
-
-print(f"🍸 {cocktail['name']}")
-for ingredient, proportion in cocktail['proportions'].items():
-    print(f"  • {proportion} {ingredient}")
-```
 
 ## 🎛️ Interface Features
 
@@ -116,47 +89,9 @@ for ingredient, proportion in cocktail['proportions'].items():
 - **Smart Combinations**: GNN embeddings ensure compatible ingredient pairing
 - **Perfect for**: Using what you have at home
 
-## 🧠 Technical Deep Dive
 
-### GNN Embedding Selection Process
 
-The system uses Graph Neural Network embeddings to make intelligent ingredient choices:
-
-1. **Embedding Computation**: Each ingredient has a 128-dimensional embedding learned from real cocktail data
-2. **Similarity Calculation**: Uses cosine similarity between embeddings to find compatible ingredients
-3. **Real Data Scoring**: Weights selections based on actual cocktail combinations in the training data
-4. **Creativity Temperature**: Higher creativity values increase the influence of embedding similarity vs. proven combinations
-5. **Balanced Selection**: Ensures mixology rules while allowing for creative exploration
-
-### Creativity as Temperature
-The creativity parameter balances between safe, proven combinations and experimental ingredient selections:
-
-```python
-final_score = (
-    (1-creativity) * real_combination_score +  # Traditional combinations
-    creativity * embedding_similarity +        # GNN-learned compatibility
-    balance_bonus                              # Mixology rules
-)
-```
-
-### Mixology Rules Enforcement
-- **Max 1 spirit** per cocktail (gin, vodka, rum, etc.)
-- **Max 1 liqueur** for balance
-- **Realistic proportions** based on ingredient type:
-  - Spirits: 32-45ml
-  - Liqueurs: 15-30ml
-  - Citrus: 10-20ml
-  - Syrups: 5-15ml
-  - Bitters: 2-4 dashes
-
-## 📊 Model Performance
-
-- **Node Embeddings**: 128-dimensional learned representations
-- **Graph Coverage**: 324 real cocktail-ingredient relationships
-- **Ingredient Similarity**: Cosine similarity in embedding space
-- **Training Data**: Authentic cocktail recipes from TheCocktailDB
-
-### Example Generated Cocktails
+### Example Generated Cocktail
 ```
 🍸 The Crimson Symphony
 • **52ml** gin
@@ -165,11 +100,7 @@ final_score = (
 • **3 dashes** orange bitters
 • **1 twist** orange peel
 
-🍸 Midnight Vodka Dream
-• **48ml** vodka
-• **22ml** cointreau
-• **15ml** cranberry juice
-• **1** cherry
+
 ```
 
 ## 🛠️ Technical Stack
@@ -181,49 +112,7 @@ final_score = (
 - **Gradio**: Web interface
 - **Matplotlib**: Data visualization
 
-## 📁 Project Structure
 
-```
-cocktail_gnn/
-├── data/
-│   ├── processed/           # Processed datasets & trained models
-│   └── raw/                 # Raw cocktail data
-├── src/
-│   ├── data/
-│   │   ├── collectors.py    # Data collection from APIs
-│   │   └── graph_builder.py # Graph construction
-│   ├── models/
-│   │   ├── cocktails_gnn.py # GNN model training
-│   │   └── cocktails_generator.py # Cocktail generation
-│   └── interface_cocktails.py # Gradio web interface
-├── notebooks/               # Jupyter notebooks for exploration
-├── requirements.txt         # Python dependencies
-└── README.md               # This file
-```
-
-## 🔬 Key Algorithms
-
-### GraphSAGE Node Embeddings
-The system uses GraphSAGE (Graph Sample and Aggregate) to learn ingredient embeddings:
-- **3-layer** message passing architecture
-- **128-dimensional** ingredient embeddings
-- **Learned from real cocktail data** to capture ingredient relationships
-
-### Ingredient Selection Algorithm
-1. **Validate mixology rules** (alcohol limits)
-2. **Calculate embedding similarity** with current ingredients
-3. **Score real combinations** from training data
-4. **Apply complement bonuses** for balance
-5. **Select best candidate** with weighted scoring using creativity as temperature
-
-### Proportion Generation
-- **Type-based rules**: Different measures for spirits, liqueurs, citrus
-- **Real data analysis**: Based on actual cocktail proportions
-- **Randomization**: Natural variation within realistic ranges
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 📧 Contact
 
